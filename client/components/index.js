@@ -6,3 +6,6 @@
 export {default as Main} from './main'
 export {default as UserHome} from './user-home'
 export {Login, Signup} from './auth-form'
+export {default as MyMapComponent} from './reactGoogleMap'
+export {default as Nav} from './Nav'
+export {default as AddLocation} from './AddLocationBar'

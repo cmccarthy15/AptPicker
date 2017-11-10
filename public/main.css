@@ -1,0 +1,11 @@
+.row {
+  display: flex
+}
+
+.spread {
+  justify-content: space-between
+}
+
+.nav-buttons > * {
+  margin: 5em 5em;
+}
