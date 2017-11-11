@@ -3,7 +3,7 @@ import PropTypes from 'prop-types'
 import {connect} from 'react-redux'
 import {withRouter, Link, Route, Switch} from 'react-router-dom'
 import {logout} from '../store'
-import { Nav, MapPage, HomePage, Login, Signup } from './index'
+import { Nav, MapPage, HomePage, Login, Signup, Profile } from './index'
 
 
 import {
@@ -19,24 +19,33 @@ import {
  *  else common to our entire app. The 'picture' inside the frame is the space
  *  rendered out by the component's `children`.
  */
-class Main extends React.Component {
+const Main = (props) => {
+  const {children, handleClick, isLoggedIn} = props
 
-  render() {
-    const {children, handleClick, isLoggedIn} = this.props
+  return (
+    <div>
+      <Nav isLoggedIn={isLoggedIn} />
+      <Switch>
+        <Route path="/home" component={HomePage} />
+        {isLoggedIn &&
+          <Switch>
+            <Route path="/map" component={MapPage} />
+            <Route path="/profile" component={Profile} />
+            <Route component={HomePage} />
+          </Switch>
+        }
+        {/*isLoggedIn && <Route path="/profile" component={Profile} />*/}
+        {!isLoggedIn &&
+          <Switch>
+            <Route path="/login" component={Login} />
+            <Route path="/signup" component={Signup} />
+            <Route component={HomePage} />
+          </Switch>
+        }
+      </Switch>
+    </div>
+  )
 
-    return (
-      <div>
-        <Nav isLoggedIn={isLoggedIn} />
-        <Switch>
-          {isLoggedIn && <Route path="/map" component={MapPage} />}
-          {/*isLoggedIn && <Route path="/profile" component={Profile} />*/}
-          {!isLoggedIn && <Route path="/login" component={Login} />}
-          {!isLoggedIn && <Route path="/signup" component={Signup} />}
-          <Route component={HomePage} />
-        </Switch>
-      </div>
-    )
-  }
 }
 
 /**
