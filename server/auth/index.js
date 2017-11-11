@@ -1,16 +1,24 @@
 const router = require('express').Router()
 const User = require('../db/models/user')
+const Feature = require('../db/models/feature')
 module.exports = router
 
 router.post('/login', (req, res, next) => {
-  User.findOne({where: {email: req.body.email}})
+  const {password, email} = req.body
+  User.findOne({where: {email: email}})
     .then(user => {
       if (!user) {
         res.status(401).send('User not found')
-      } else if (!user.correctPassword(req.body.password)) {
+      } else if (!user.correctPassword(password)) {
         res.status(401).send('Incorrect password')
       } else {
-        req.login(user, err => (err ? next(err) : res.json(user)))
+        User.findOne({
+          where: { email: email },
+          attributes: ['id', 'email', 'name', 'radius'],
+          include: [{ model: Feature, through: 'userInterests' }]
+        })
+      .then(someUser => {
+        req.login(someUser, err => (err ? next(err) : res.json(someUser)))})
       }
     })
     .catch(next)
@@ -18,8 +26,13 @@ router.post('/login', (req, res, next) => {
 
 router.post('/signup', (req, res, next) => {
   User.create(req.body)
-    .then(user => {
-      req.login(user, err => (err ? next(err) : res.json(user)))
+    .then( (user) => {
+      User.findOne({
+        where: { id: user.id },
+        attributes: ['id', 'email', 'name', 'radius'],
+        include: [{ model: Feature, through: 'userInterests' }]
+      })
+      .then(someUser => req.login(someUser, err => (err ? next(err) : res.json(someUser))))
     })
     .catch(err => {
       if (err.name === 'SequelizeUniqueConstraintError') {

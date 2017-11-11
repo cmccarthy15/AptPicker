@@ -1,5 +1,6 @@
 import axios from 'axios'
 import history from '../history'
+import {removeAddresses} from './index'
 
 /**
  * ACTION TYPES
@@ -25,7 +26,8 @@ export const me = () =>
   dispatch =>
     axios.get('/auth/me')
       .then(res =>
-        dispatch(getUser(res.data || defaultUser)))
+        {console.log('inside of auth me and it returned: ', res.data)
+        dispatch(getUser(res.data || defaultUser))})
       .catch(err => console.log(err))
 
 export const auth = (email, password, method, name) =>
@@ -43,6 +45,7 @@ export const logout = () =>
     axios.post('/auth/logout')
       .then(_ => {
         dispatch(removeUser())
+        dispatch(removeAddresses())
         history.push('/home')
       })
       .catch(err => console.log(err))

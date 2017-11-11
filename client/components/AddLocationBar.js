@@ -32,7 +32,8 @@ export class AddLocation extends Component{
         const location = results[0].geometry.location;
         const lat = location.lat();
         const lng = location.lng();
-        this.props.addNewAddr({address: this.state.address, lat, lng})
+        const userId = this.props.user.id
+        this.props.addNewAddr({address: this.state.address, lat, lng, userId})
       })
   }
 
@@ -55,7 +56,12 @@ export class AddLocation extends Component{
 }
 
 
-const mapState = null;
+const mapState = state => {
+  return {
+    user: state.user
+  }
+};
+
 const mapDispatch = (dispatch) => {
   return {
     addNewAddr(addr){

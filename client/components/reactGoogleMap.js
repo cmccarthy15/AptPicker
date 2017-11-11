@@ -14,7 +14,8 @@ import { getAddrThunk } from '../store'
 export class MyMapComponent extends Component {
 
   componentDidMount(){
-    this.props.getAllAddr();
+    console.log('map mounted with user: ', this.props.user);
+    this.props.getAllAddr(this.props.user.id);
   }
 
   render(){
@@ -56,14 +57,15 @@ export class MyMapComponent extends Component {
 //   ))
 const mapState = (state) => {
   return {
-    addresses: state.addresses
+    addresses: state.addresses,
+    user: state.user
   }
 }
 
 const mapDispatch = (dispatch) => {
   return {
-    getAllAddr() {
-      dispatch(getAddrThunk())
+    getAllAddr(userId) {
+      dispatch(getAddrThunk(userId))
     }
   }
 }

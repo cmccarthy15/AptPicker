@@ -25,11 +25,6 @@ const User = db.define('user', {
     type: Sequelize.INTEGER,
     defaultValue: 1000
   }
-}, {
-  defaultScope: {
-    attributes: ['id', 'email', 'name', 'radius'],
-    include: [{ model: Feature, through: 'userInterests' } ]
-  }
 })
 
 module.exports = User

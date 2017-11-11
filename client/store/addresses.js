@@ -4,6 +4,7 @@ import axios from 'axios'
  * ACTION TYPES
  */
  const GET_ADDRESSES = 'GET_ADDRESSES'
+ const REMOVE_ADDRESSES = 'REMOVE_ADDRESSES'
 
  /**
  * INITIAL STATE
@@ -15,14 +16,15 @@ import axios from 'axios'
  */
 
  const getAddresses = (addresses) => ({type: GET_ADDRESSES, addresses})
+ const removeAddresses = () => ({type: REMOVE_ADDRESSES})
 
  /**
  * THUNKS
  */
 
-export const getAddrThunk = () =>
+export const getAddrThunk = (userId) =>
   dispatch => {
-    axios.get('/api/addresses')
+    axios.get(`/api/addresses/user/${userId}`)
       .then(addresses => {
         dispatch(getAddresses(addresses.data))
       })
@@ -31,11 +33,11 @@ export const getAddrThunk = () =>
 
 export const addAddr = (addr) =>
   dispatch => {
-    console.log('inside of the thunk')
+    console.log('inside of the thunk', addr)
     axios.post('api/addresses/new', addr)
       .then( () => {
         console.log('got a response back')
-        dispatch(getAddrThunk())
+        dispatch(getAddrThunk(addr.userId))
       })
       .catch(err => console.error(err));
   }
@@ -49,6 +51,8 @@ export const addAddr = (addr) =>
    switch (action.type) {
     case GET_ADDRESSES:
       return action.addresses;
+    case REMOVE_ADDRESSES:
+      return [];
     default:
       return state;
    }
