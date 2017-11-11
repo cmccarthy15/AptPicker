@@ -1,10 +1,10 @@
 import React from 'react'
 import PropTypes from 'prop-types'
 import {connect} from 'react-redux'
-import {withRouter, Link} from 'react-router-dom'
+import {withRouter, Link, Route, Switch} from 'react-router-dom'
 import {logout} from '../store'
-import { MyMapComponent, Nav, AddLocation } from './index'
-import { googleMapsApi } from '../../secrets'
+import { Nav, MapPage, HomePage } from './index'
+
 
 import {
   withScriptjs,
@@ -20,32 +20,17 @@ import {
  *  rendered out by the component's `children`.
  */
 class Main extends React.Component {
-  state = { maps: null }
-
-  initGlobalGoogle = () => {
-    const {google} = window
-    this.setState({
-      maps: google.maps,
-    })
-  }
-
 
   render() {
     const {children, handleClick, isLoggedIn} = this.props
-        , {maps} = this.state
+
     return (
       <div>
         <Nav isLoggedIn={isLoggedIn} />
-        <AddLocation maps={maps}/>
-        <hr />
-        <MyMapComponent
-          onMapLoaded={this.initGlobalGoogle}
-          googleMapURL={`https://maps.googleapis.com/maps/api/js?key=${googleMapsApi}&v=3.exp&libraries=geometry,drawing,places,visualization`} // this may not work anymore...
-          loadingElement={<div style={{ height: `100%` }} />}
-          containerElement={<div style={{ height: `400px` }} />}
-          mapElement={<div style={{ height: `100%` }} />}
-          />
-        {children}
+        <Switch>
+          {isLoggedIn && <Route path="/map" component={MapPage} />}
+          <Route component={HomePage} />
+        </Switch>
       </div>
     )
   }

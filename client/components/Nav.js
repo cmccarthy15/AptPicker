@@ -13,12 +13,13 @@ const Nav = (props) => {
       <div>
         { isLoggedIn ?
           <div className="nav-buttons">
+            <Link to="/map"> Map </Link>
             <Link to="/profile"> Profile </Link>
             <a href="#" >Logout</a>
           </div>
         : <div>
-            <a href="#" >Login</a>
-            <a href="#" >Sign Up</a>
+            <Link to="/login"> Login </Link>
+            <Link to="/signup"> Sign Up </Link>
           </div>
         }
       </div>

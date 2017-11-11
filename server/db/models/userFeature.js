@@ -1,4 +1,4 @@
-const { STRING, DECIMAL } = require('sequelize')
+const { STRING, DECIMAL, INTEGER } = require('sequelize')
 const db = require('../db')
 
 const UserFeature = db.define('UserFeature', {
@@ -17,6 +17,12 @@ const UserFeature = db.define('UserFeature', {
   lng: {
     type: DECIMAL,
     allowNull: false
+  },
+  rating: {
+    type: INTEGER,
+  },
+  distance: {
+    type: DECIMAL,
   }
 })
 
