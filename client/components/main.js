@@ -4,6 +4,7 @@ import {connect} from 'react-redux'
 import {withRouter, Link} from 'react-router-dom'
 import {logout} from '../store'
 import { MyMapComponent, Nav, AddLocation } from './index'
+import { googleMapsApi } from '../../secrets'
 
 import {
   withScriptjs,
@@ -39,7 +40,7 @@ class Main extends React.Component {
         <hr />
         <MyMapComponent
           onMapLoaded={this.initGlobalGoogle}
-          googleMapURL="https://maps.googleapis.com/maps/api/js?key=AIzaSyB99tU9cvIwvhe_c7n7ubWlFwJM9HdrbYw&v=3.exp&libraries=geometry,drawing,places,visualization"
+          googleMapURL={`https://maps.googleapis.com/maps/api/js?key=${googleMapsApi}&v=3.exp&libraries=geometry,drawing,places,visualization`} // this may not work anymore...
           loadingElement={<div style={{ height: `100%` }} />}
           containerElement={<div style={{ height: `400px` }} />}
           mapElement={<div style={{ height: `100%` }} />}

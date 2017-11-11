@@ -2,6 +2,7 @@ import React, { Component } from 'react'
 import { connect } from 'react-redux'
 import { Router } from 'react-router'
 import { Route, Link } from 'react-router-dom'
+import { addAddr } from '../store'
 
 
 export class AddLocation extends Component{
@@ -13,33 +14,8 @@ export class AddLocation extends Component{
       extras: {cafe: false, gym: false, park: false, library: false, yoga: false, grocery: false}
     }
     this.handleChange = this.handleChange.bind(this);
+    this.handleSubmit = this.handleSubmit.bind(this);
   }
-
-  // componentDidMount() {
-  //   if (typeof window === 'undefined') {
-  //     return;
-  //   }
-  //   console.log('window is: ', window, window.google, window.alert);
-
-  //   var googleMaps = this.props.googleMaps ||
-  //     (window.google && // eslint-disable-line no-extra-parens
-  //       window.google.maps) ||
-  //     this.googleMaps;
-
-  //   /* istanbul ignore next */
-  //   if (!googleMaps) {
-  //     if (console) {
-  //       console.error(// eslint-disable-line no-console
-  //         'Google map api was not found in the page.');
-  //     }
-  //     return;
-  //   }
-  //   this.googleMaps = googleMaps;
-  //   console.log('google maps were found: ', this.googleMaps);
-
-  //   this.autocompleteService = new googleMaps.places.AutocompleteService();
-  //   this.geocoder = new googleMaps.Geocoder();
-  // }
 
   componentDidMount() { this.createGeocoder(this.props) }
   componentWillReceiveProps(props) { this.createGeocoder(props) }
@@ -47,9 +23,8 @@ export class AddLocation extends Component{
   createGeocoder(props) {
     if (this.geocoder) return
     if (props.maps && props.maps.Geocoder)
-      this.geocoder = new props.maps.Geocoder
+      this.geocoder = new props.maps.Geocoder();
   }
-
 
   handleChange(evt){
     console.log('updating state: ', this.state)
@@ -57,6 +32,27 @@ export class AddLocation extends Component{
       this.setState({ [evt.target.name]: evt.target.value })
     : this.setState({extras: {...this.state.extras, [evt.target.name]: evt.target.checked }})
     console.log('now state: ', this.state);
+  }
+
+  handleSubmit(evt){
+    evt.preventDefault();
+    console.log(this.geocoder);
+    this.geocoder.geocode({address: this.state.address},
+      (results) => {
+        const location = results[0].geometry.location;
+        const lat = location.lat();
+        const lng = location.lng();
+        console.log(this.state.address, lat, lng);
+        this.props.addNewAddr({address: this.state.address, lat, lng})
+        // console.log('results from geocoder: ', results);
+        // console.log('results[0] from geocoder: ', results[0]);
+        // console.log('results[0].geometry from geocoder: ', results[0].geometry);
+        // console.log('results[0].geometry.location from geocoder: ', results[0].geometry.location);
+        //   var marker = new google.maps.Marker({
+        //     map: map,
+        //     position: results[0].geometry.location
+
+      })
   }
 
   render() {
@@ -99,12 +95,29 @@ export class AddLocation extends Component{
               </label>
               ))}
             </label>
+          <input type="submit" value="Submit" />
         </form>
     )}
 }
 
 
 const mapState = null;
-const mapDispatch = null;
+const mapDispatch = (dispatch) => {
+  return {
+    addNewAddr(addr){
+      dispatch(addAddr(addr))
+    }
+  }
+};
 
 export default connect(mapState, mapDispatch)(AddLocation);
+
+// geocoder.geocode({
+// "address": "55 East 117th St New York NY 10035"
+// },
+// function (results) {
+//   console.log(results[0].geometry.location.lat()); //LatLng
+//   var marker = new google.maps.Marker({
+//     map: map,
+//     position: results[0].geometry.location
+//   });

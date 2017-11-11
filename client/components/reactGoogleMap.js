@@ -4,31 +4,69 @@ import {
   GoogleMap,
   Marker,
   Circle
-} from "react-google-maps"
+} from 'react-google-maps'
 
-import React from 'react'
-
-const MyMapComponent = withScriptjs(withGoogleMap(({
-  isMarkerShown=true,
-  onMapLoaded=_ => _
-}) =>
-  <GoogleMap
-    ref={onMapLoaded}
-    defaultZoom={12}
-    center={{
-      lat: 40.714,
-      lng: -74.005 }} >
-    {isMarkerShown && <Marker position={{ lat: -34.397, lng: 150.644 }} />}
-    <Circle
-      options={{ strokeColor: '#FF0000', fillColor: `#ff0000`}}
-      center= {{
-        lat: 40.714,
-        lng: -74.005
-      }}
-      radius={1000}
-    />
-
-  </GoogleMap>))
+import React, { Component } from 'react'
+import { connect } from 'react-redux'
+import { getAddrThunk } from '../store'
 
 
-export default MyMapComponent;
+export class MyMapComponent extends Component {
+
+  componentDidMount(){
+    this.props.getAllAddr();
+  }
+
+  render(){
+    const { onMapLoaded } = this.props;
+    console.log('this component has addresses... ', this.props.addresses)
+    return (
+      <GoogleMap
+        ref={onMapLoaded}
+        defaultZoom={11}
+        center={{
+          lat: 40.714,
+          lng: -74.005
+        }} >
+        {this.props.addresses.map( address => {
+          return (
+            <div key={address.id}>
+              <Marker position={{ lat: Number(address.lat), lng: Number(address.lng) }} />
+              <Circle
+                options={{ strokeColor: '#FF0000', fillColor: `#ff0000` }}
+                center={{
+                  lat: Number(address.lat),
+                  lng: Number(address.lng)
+                }}
+                radius={1000}
+              />
+            </div>
+          )
+        })}
+      </GoogleMap>
+    )
+  }
+}
+
+
+// const MyMapComponent = withScriptjs(withGoogleMap(({
+//   isMarkerShown=true,
+//   onMapLoaded=_ => _,
+// }) =>
+//   ))
+const mapState = (state) => {
+  return {
+    addresses: state.addresses
+  }
+}
+
+const mapDispatch = (dispatch) => {
+  return {
+    getAllAddr() {
+      dispatch(getAddrThunk())
+    }
+  }
+}
+
+
+export default connect(mapState, mapDispatch)(withScriptjs(withGoogleMap(MyMapComponent)));
