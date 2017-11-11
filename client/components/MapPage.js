@@ -37,7 +37,6 @@ class MapPage extends React.Component {
   render() {
     const { features } = this.props
       , { maps } = this.state
-      console.log(features);
     return (
       <div>
         <AddLocation maps={maps} features={features} />

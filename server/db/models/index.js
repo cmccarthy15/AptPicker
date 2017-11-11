@@ -14,10 +14,14 @@ Address.belongsTo(User);
 User.hasMany(Address);
 
 UserFeature.belongsTo(User);
-Feature.hasMany(User);
+User.hasMany(UserFeature);
 
 UserFeature.belongsTo(Feature);
 Feature.hasMany(UserFeature);
+
+
+User.belongsToMany(Feature, { through: 'userInterests' })
+Feature.belongsToMany(User, {through: 'userInterests'})
 
 
 /**

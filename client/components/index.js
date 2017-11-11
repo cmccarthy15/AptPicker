@@ -12,3 +12,4 @@ export {default as AddLocation} from './AddLocationBar'
 export {default as MapPage} from './MapPage'
 export {default as HomePage} from './HomePage'
 export {default as Profile} from './Profile'
+export {default as EditSearch} from './EditSearchTerms';
