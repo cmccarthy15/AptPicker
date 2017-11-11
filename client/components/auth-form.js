@@ -65,7 +65,7 @@ const mapDispatch = (dispatch) => {
       const formName = evt.target.name
       const email = evt.target.email.value
       const password = evt.target.password.value
-      const fullname = evt.target.fullname.value
+      const fullname = evt.target.fullname ? evt.target.fullname.value : ''
       dispatch(auth(email, password, formName, fullname))
     }
   }

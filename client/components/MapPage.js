@@ -2,7 +2,7 @@ import React from 'react'
 import PropTypes from 'prop-types'
 import { connect } from 'react-redux'
 import { withRouter, Link } from 'react-router-dom'
-import { logout } from '../store'
+import { getFeaturesThunk } from '../store'
 import { MyMapComponent, Nav, AddLocation } from './index'
 import { googleMapsApi } from '../../secrets'
 
@@ -22,6 +22,10 @@ import {
 class MapPage extends React.Component {
   state = { maps: null }
 
+  componentDidMount(){
+    this.props.getFeatures();
+  }
+
   initGlobalGoogle = () => {
     const { google } = window
     this.setState({
@@ -31,11 +35,12 @@ class MapPage extends React.Component {
 
 
   render() {
-    const { handleClick } = this.props
+    const { features } = this.props
       , { maps } = this.state
+      console.log(features);
     return (
       <div>
-        <AddLocation maps={maps} />
+        <AddLocation maps={maps} features={features} />
         <hr />
         <MyMapComponent
           onMapLoaded={this.initGlobalGoogle}
@@ -52,9 +57,19 @@ class MapPage extends React.Component {
 /**
  * CONTAINER
  */
-const mapState = null;
+const mapState = state => {
+  return ({
+    features: state.features
+  })
+};
 
-const mapDispatch = null
+const mapDispatch = dispatch => {
+  return {
+    getFeatures() {
+      dispatch(getFeaturesThunk());
+    }
+  }
+}
 
 // The `withRouter` wrapper makes sure that updates are not blocked
 // when the url changes
