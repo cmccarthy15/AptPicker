@@ -10,7 +10,7 @@ export const Profile = (props) => {
 
   return (
     <div>
-      <h3>Welcome, {name}</h3>
+      <h3>Welcome, {name ? name : email}</h3>
       <p>{`Currently your radius is set to ${radius}.`}</p>
     </div>
   )
