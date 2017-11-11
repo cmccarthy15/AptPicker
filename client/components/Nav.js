@@ -2,10 +2,11 @@ import React, { Component } from 'react'
 import { connect } from 'react-redux'
 import { Router } from 'react-router'
 import { Route, Link } from 'react-router-dom'
+import { logout } from '../store'
 
 
 const Nav = (props) => {
-  const { isLoggedIn } = props;
+  const { isLoggedIn, handleClick } = props;
 
   return (
     <div className="row spread">
@@ -15,7 +16,7 @@ const Nav = (props) => {
           <div className="nav-buttons">
             <Link to="/map"> Map </Link>
             <Link to="/profile"> Profile </Link>
-            <a href="#" >Logout</a>
+            <Link to="/home" onClick={handleClick}>Logout</Link>
           </div>
         : <div>
             <Link to="/login"> Login </Link>
@@ -29,6 +30,12 @@ const Nav = (props) => {
 
 
 const mapState = null;
-const mapDispatch = null;
+const mapDispatch = (dispatch) => {
+  return {
+    handleClick() {
+      dispatch(logout())
+    }
+  }
+}
 
-export default Nav;
+export default connect(mapState, mapDispatch)(Nav);
