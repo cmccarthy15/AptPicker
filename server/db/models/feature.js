@@ -5,6 +5,10 @@ const Feature = db.define('feature', {
   type: {
     type: STRING,
     allowNull: false
+  },
+  color: {
+    type: STRING,
+    allowNull: false
   }
 })
 
