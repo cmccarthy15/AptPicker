@@ -1,5 +1,5 @@
 const router = require('express').Router()
-const { Address } = require('../db/models')
+const { Address, Feature } = require('../db/models')
 module.exports = router
 
 // to get all the addresses
@@ -13,7 +13,9 @@ router.get('/', (req, res, next) => {
 
 router.get('/user/:id', (req, res, next) => {
   const id = req.params.id
-  Address.findAll({where: {userId: id}})
+  Address.findAll({
+    where: {userId: id}
+  })
     .then(addresses => {
       res.json(addresses);
     })

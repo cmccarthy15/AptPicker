@@ -2,7 +2,7 @@ import React, { Component } from 'react'
 import { connect } from 'react-redux'
 import { Router } from 'react-router'
 import { Route, Link } from 'react-router-dom'
-import { addAddr } from '../store'
+import { addAddr, addNewAddress } from '../store'
 
 
 export class AddLocation extends Component{
@@ -38,8 +38,6 @@ export class AddLocation extends Component{
   }
 
   render() {
-    console.log(this.geocoder)
-
     return (
         <form onSubmit={this.handleSubmit} className="row spread">
           <label>
@@ -64,8 +62,12 @@ const mapState = state => {
 
 const mapDispatch = (dispatch) => {
   return {
-    addNewAddr(addr){
-      dispatch(addAddr(addr))
+    addNewAddr({address, lat, lng, userId}){
+      console.log('inside of handler')
+      dispatch(addAddr({ address, lat, lng, userId }))
+      console.log('completed addAddr')
+      dispatch(addNewAddress({userId, lat, lng}))
+      console.log('completed addNewAddress (features)')
     }
   }
 };

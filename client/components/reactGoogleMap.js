@@ -8,14 +8,14 @@ import {
 
 import React, { Component } from 'react'
 import { connect } from 'react-redux'
-import { getAddrThunk } from '../store'
+import { getAddrThunk, getSelectedThunk } from '../store'
 
 
 export class MyMapComponent extends Component {
 
   componentDidMount(){
     console.log('map mounted with user: ', this.props.user);
-    this.props.getAllAddr(this.props.user.id);
+    this.props.getMapInfo(this.props.user.id);
   }
 
   render(){
@@ -39,8 +39,17 @@ export class MyMapComponent extends Component {
                   lat: Number(address.lat),
                   lng: Number(address.lng)
                 }}
-                radius={1000}
+                radius={800}
               />
+            </div>
+          )
+        })}
+        {this.props.features.map(feature => {
+          return (
+            <div key={feature.id}>
+              <Marker
+                position={{ lat: Number(feature.lat), lng: Number(feature.lng) }}
+                icon={{ scaledSize: {width: 15, height: 15}, url: 'https://image.flaticon.com/icons/svg/37/37908.svg'}} />
             </div>
           )
         })}
@@ -58,14 +67,16 @@ export class MyMapComponent extends Component {
 const mapState = (state) => {
   return {
     addresses: state.addresses,
-    user: state.user
+    user: state.user,
+    features: state.features
   }
 }
 
 const mapDispatch = (dispatch) => {
   return {
-    getAllAddr(userId) {
+    getMapInfo(userId) {
       dispatch(getAddrThunk(userId))
+      dispatch(getSelectedThunk(userId))
     }
   }
 }
