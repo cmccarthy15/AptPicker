@@ -4,7 +4,7 @@ module.exports = router
 
 // to get all the addresses
 router.get('/', (req, res, next) => {
-  Address.findAll()
+  return Address.findAll()
     .then( addresses => {
       res.json(addresses);
     })
@@ -13,7 +13,7 @@ router.get('/', (req, res, next) => {
 
 router.get('/user/:id', (req, res, next) => {
   const id = req.params.id
-  Address.findAll({
+  return Address.findAll({
     where: {userId: id}
   })
     .then(addresses => {

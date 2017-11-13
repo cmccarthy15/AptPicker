@@ -19,6 +19,8 @@ User.hasMany(UserFeature);
 UserFeature.belongsTo(Feature);
 Feature.hasMany(UserFeature);
 
+UserFeature.belongsTo(Address, {as: 'Address'})
+
 
 User.belongsToMany(Feature, { through: 'userInterests' })
 Feature.belongsToMany(User, {through: 'userInterests'})

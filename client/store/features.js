@@ -3,7 +3,8 @@ import axios from 'axios'
 /**
  * ACTION TYPES
  */
-const GET_FEATURES = 'GET_FEATURES'
+const GET_SELECTED = 'GET_SELECTED'
+const ADDED_ADDRESS = 'ADDED_ADDRESS'
 
 /**
 * INITIAL STATE
@@ -14,17 +15,33 @@ const defaultState = [];
 * ACTION CREATORS
 */
 
-const getFeatures = (features) => ({ type: GET_FEATURES, features })
+const getSelected = (features) => ({ type: GET_SELECTED, features })
+const addedAddress = (features) => ({ type: ADDED_ADDRESS, features})
 
 /**
 * THUNKS
 */
 
-export const getFeaturesThunk = () =>
+export const getSelectedThunk = (id) =>
   dispatch => {
-    axios.get('/api/features')
+    axios.get(`/api/features/user/${id}`)
       .then(features => {
-        dispatch(getFeatures(features.data))
+        dispatch(getSelected(features.data))
+      })
+      .catch(err => console.error(err))
+  }
+
+export const addNewAddress = (info) =>
+  dispatch => {
+    axios.post(`/api/features/user/${info.userId}/newaddr`, info)
+      .then( features => {
+        // console.log('features data is ---> ', features.data)
+        // const limitedData = features.data.map(({ name, rating, coordinates, price, location }) => {
+        //   return { name, rating, lng: coordinates.longitude, lat: coordinates.latitude, price, address: location.display_address[0] }
+        // })
+        // console.log('limited data is ---> ', limitedData)
+        // dispatch(addedAddress(limitedData))
+        dispatch(getSelectedThunk(info.userId))
       })
       .catch(err => console.error(err))
   }
@@ -37,8 +54,10 @@ export const getFeaturesThunk = () =>
 
 export default function (state = defaultState, action) {
   switch (action.type) {
-    case GET_FEATURES:
+    case GET_SELECTED:
       return action.features;
+    case ADDED_ADDRESS:
+      return [...state, ...action.features];
     default:
       return state;
   }

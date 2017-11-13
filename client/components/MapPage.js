@@ -2,7 +2,7 @@ import React from 'react'
 import PropTypes from 'prop-types'
 import { connect } from 'react-redux'
 import { withRouter, Link } from 'react-router-dom'
-import { getFeaturesThunk } from '../store'
+import { getFeaturesThunk, addAddr } from '../store'
 import { MyMapComponent, Nav, AddLocation } from './index'
 import { googleMapsApi } from '../../secrets'
 
@@ -35,8 +35,10 @@ class MapPage extends React.Component {
 
 
   render() {
-    const { features } = this.props
+    const { features, addresses } = this.props
       , { maps } = this.state
+
+    console.log('features on MapPage: ', features, addresses)
     return (
       <div>
         <AddLocation maps={maps} features={features} />
@@ -58,7 +60,8 @@ class MapPage extends React.Component {
  */
 const mapState = state => {
   return ({
-    features: state.features
+    features: state.features,
+    addresses: state.addresses
   })
 };
 

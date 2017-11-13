@@ -1,4 +1,5 @@
 import axios from 'axios'
+import { addNewAddress } from './index'
 
 /**
  * ACTION TYPES
@@ -35,8 +36,9 @@ export const addAddr = (addr) =>
   dispatch => {
     console.log('inside of the thunk', addr)
     axios.post('api/addresses/new', addr)
-      .then( () => {
+      .then( address => {
         console.log('got a response back')
+        dispatch(addNewAddress({...addr, AddressId: address.data.id}))
         dispatch(getAddrThunk(addr.userId))
       })
       .catch(err => console.error(err));
