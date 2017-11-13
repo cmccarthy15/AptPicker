@@ -10,7 +10,10 @@ const Nav = (props) => {
 
   return (
     <div className="row spread">
-      <Link to="/home"><img src='' /><h1>Get-Apt</h1></Link>
+      <Link className="row name-icon" to="/home">
+        <img className="icon-nav" src="https://image.flaticon.com/icons/svg/585/585531.svg" />
+        <h1 className="nav-name">Get-Apt</h1>
+      </Link>
       <div>
         { isLoggedIn ?
           <div className="nav-buttons">
@@ -18,7 +21,7 @@ const Nav = (props) => {
             <Link to="/profile"> Profile </Link>
             <Link to="/home" onClick={handleClick}>Logout</Link>
           </div>
-        : <div>
+        : <div className="row spread">
             <Link to="/login"> Login </Link>
             <Link to="/signup"> Sign Up </Link>
           </div>

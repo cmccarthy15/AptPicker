@@ -7,8 +7,8 @@ export const AddressInfo = ({address}) => {
   console.log('address is: ', address);
   return (
     <div>
-      <h3>{address.address}</h3>
-      <div>
+      <h3 className="address-name">{address.address}</h3>
+      <div className="column wrap">
       {address.UserFeatures.map( feature => {
         return (
           <p key={feature.id}><a href={feature.url} target="_blank">{feature.name}</a>{` at ${feature.address} has a rating of ${feature.rating} (${feature.feature ? feature.feature.type : 'oops'})`}

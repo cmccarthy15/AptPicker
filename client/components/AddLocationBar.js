@@ -45,13 +45,14 @@ export class AddLocation extends Component{
 
   render() {
     return (
-        <form onSubmit={this.handleSubmit} className="row spread">
+        <form onSubmit={this.handleSubmit} className="row">
           <label>
             Address:
             <input
               type="text"
               value={this.state.address}
               name="address"
+              className="address-input"
               onChange={this.handleChange} />
           </label>
           <input className="button" type="submit" value="Submit" />

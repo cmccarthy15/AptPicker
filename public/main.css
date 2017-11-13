@@ -1,7 +1,7 @@
 .row {
   display: flex;
   align-items: center;
-  align-content: center
+  align-content: center;
 }
 
 .column {
@@ -10,11 +10,21 @@
 }
 
 .spread {
-  justify-content: space-between
+  justify-content: space-between;
+}
+
+.spread > * {
+  margin: 0em 3em;
+}
+
+
+.wrap {
+  flex-wrap: wrap;
+  height: 15vh;
 }
 
 .nav-buttons > * {
-  margin: 5em 5em;
+  margin: 0em 3em;
 }
 
 .center-text{
@@ -28,5 +38,41 @@ Link {
 button, .button {
   border-radius: 5px;
   color: rgb(22, 114, 150);
-  text-decoration: bold
+  text-decoration: bold;
+}
+
+.address-name{
+  background-color: #99C5FF;
+  margin: 0;
+  padding: 1em;
+}
+
+.address-input{
+  margin: 0 1em;
+  width: 10vw;
+}
+
+.homepage {
+  position: relative;
+  left: 25vw;
+  width: 50vw;
+}
+
+.icon-home {
+  height: auto;
+  max-width: 10vw;
+}
+
+.icon-nav {
+  height: auto;
+  max-width: 3vw;
+}
+
+.nav-name {
+  color: black;
+  max-width: 10vw;
+}
+
+.name-icon {
+  width: 50vw;
 }
