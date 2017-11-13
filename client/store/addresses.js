@@ -37,9 +37,12 @@ export const addAddr = (addr) =>
     console.log('inside of the thunk', addr)
     axios.post('api/addresses/new', addr)
       .then( address => {
-        console.log('got a response back')
-        dispatch(addNewAddress({...addr, AddressId: address.data.id}))
-        dispatch(getAddrThunk(addr.userId))
+        console.log('got a response back', address)
+        dispatch(addNewAddress({...addr, addressId: address.data.id}))
+        .then( () =>
+          dispatch(getAddrThunk(addr.userId))
+        )
+
       })
       .catch(err => console.error(err));
   }

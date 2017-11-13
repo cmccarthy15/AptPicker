@@ -28,7 +28,7 @@ router.get('/user/:id', (req, res, next) => {
 
 
 router.post('/user/:id/newaddr', (req, res, next) => {
-  console.log('req has the right stuff? ', req.lat, req.lng, req.body);
+  console.log('req body has the right stuff? ', req.body);
     yelpClient.search({
       term: 'coffee',
       latitude: req.body.lat,
@@ -39,7 +39,7 @@ router.post('/user/:id/newaddr', (req, res, next) => {
     .then(async response => {
       const businesses = response.jsonBody.businesses;
       const limitedData = await businesses.map(async ({ name, rating, coordinates, price, location, distance}) => {
-        await UserFeature.create({ name, rating, lng: coordinates.longitude, lat: coordinates.latitude, price, address: location.display_address[0], distance, userId: req.params.id })
+        await UserFeature.create({ name, rating, lng: coordinates.longitude, lat: coordinates.latitude, price, address: location.display_address[0], distance, userId: req.params.id, addressId: req.body.addressId })
       })
       res.json(businesses)
     })

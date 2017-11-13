@@ -33,8 +33,9 @@ export const getSelectedThunk = (id) =>
 
 export const addNewAddress = (info) =>
   dispatch => {
-    axios.post(`/api/features/user/${info.userId}/newaddr`, info)
-      .then( features => {
+    console.log('info inside of the thunk in question: ', info);
+    return axios.post(`/api/features/user/${info.userId}/newaddr`, info)
+      .then( () => {
         // console.log('features data is ---> ', features.data)
         // const limitedData = features.data.map(({ name, rating, coordinates, price, location }) => {
         //   return { name, rating, lng: coordinates.longitude, lat: coordinates.latitude, price, address: location.display_address[0] }
