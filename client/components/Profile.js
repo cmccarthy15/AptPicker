@@ -32,6 +32,7 @@ export class Profile extends Component {
         <button onClick={() => this.setState({editSearch: !this.state.editSearch})}>
           Edit Search Terms </button>
         {this.state.editSearch && <EditSearch options={options} />}
+        <hr />
         {addresses.map( address => (<AddressInfo key={address.id} address={address} />))}
       </div>
     )

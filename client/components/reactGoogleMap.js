@@ -25,9 +25,9 @@ export class MyMapComponent extends Component {
     return (
       <GoogleMap
         ref={onMapLoaded}
-        defaultZoom={11}
+        defaultZoom={12}
         center={{
-          lat: 40.714,
+          lat: 40.764,
           lng: -74.005
         }} >
         {this.props.addresses.map( address => {

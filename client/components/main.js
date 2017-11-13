@@ -25,6 +25,7 @@ const Main = (props) => {
   return (
     <div>
       <Nav isLoggedIn={isLoggedIn} />
+      <hr />
       <Switch>
         <Route path="/home" component={HomePage} />
         {isLoggedIn &&
