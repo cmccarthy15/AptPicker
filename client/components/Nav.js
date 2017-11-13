@@ -10,7 +10,7 @@ const Nav = (props) => {
 
   return (
     <div className="row spread">
-      <Link to="/home"><img src='' /><h1>AptPicker</h1></Link>
+      <Link to="/home"><img src='' /><h1>Get-Apt</h1></Link>
       <div>
         { isLoggedIn ?
           <div className="nav-buttons">
