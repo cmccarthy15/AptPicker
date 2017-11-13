@@ -50,6 +50,22 @@ export const logout = () =>
       })
       .catch(err => console.log(err))
 
+export const updateRadius = ({id, radius}) =>
+  dispatch =>
+     { console.log('inside of update radius: ', id, radius)
+        return axios.put(`/api/users/${id}`, {radius})
+        .then(_ => dispatch(me()))}
+
+export const updateInterests = ({id, options}) =>
+      dispatch => {
+        console.log('inside of update interests: ', id, options);
+        return axios.put(`/api/users/interests/${id}`, { options })
+          .then(_ => {
+            console.log('about to dispatch me')
+            dispatch(me())})
+      }
+
+
 /**
  * REDUCER
  */

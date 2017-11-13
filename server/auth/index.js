@@ -48,8 +48,14 @@ router.post('/logout', (req, res) => {
   res.redirect('/')
 })
 
-router.get('/me', (req, res) => {
-  res.json(req.user)
+router.get('/me', (req, res, next) => {
+  User.findById(req.user.id)
+    .then(user => {
+      req.user = user;
+      res.json(user)})
+    .catch(next)
+
+  //res.json(req.user)
 })
 
 router.use('/google', require('./google'))

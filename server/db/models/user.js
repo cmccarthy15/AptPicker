@@ -1,6 +1,7 @@
 const crypto = require('crypto')
 const Sequelize = require('sequelize')
 const db = require('../db')
+const Feature = require('./feature')
 
 const User = db.define('user', {
   email: {
@@ -23,6 +24,10 @@ const User = db.define('user', {
   radius: {
     type: Sequelize.INTEGER,
     defaultValue: 1000
+  }
+}, {
+  defaultScope: {
+    include: [{model: Feature, through: 'userInterests'}]
   }
 })
 

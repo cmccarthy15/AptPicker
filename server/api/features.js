@@ -27,21 +27,24 @@ router.get('/user/:id', (req, res, next) => {
 })
 
 
-router.post('/user/:id/newaddr', (req, res, next) => {
-  console.log('req body has the right stuff? ', req.body);
-    yelpClient.search({
-      term: 'coffee',
+router.post('/user/:id/newaddr', async (req, res, next) => {
+  console.log('req body has the right stuff? ', req.body); // radius and array of arrays [id, type]
+  await req.body.options.forEach(option => {
+    return yelpClient.search({
+      term: option[1] ,
       latitude: req.body.lat,
       longitude: req.body.lng,
-      radius: 800,
+      radius: req.body.radius,
       limit: 5
     })
-    .then(async response => {
-      const businesses = response.jsonBody.businesses;
-      const limitedData = await businesses.map(async ({ name, rating, coordinates, price, location, distance}) => {
-        await UserFeature.create({ name, rating, lng: coordinates.longitude, lat: coordinates.latitude, price, address: location.display_address[0], distance, userId: req.params.id, addressId: req.body.addressId })
+      .then(async response => {
+        const businesses = response.jsonBody.businesses;
+        const limitedData = await businesses.map(async ({ name, rating, coordinates, price, location, distance }) => {
+          await UserFeature.create({ name, rating, lng: coordinates.longitude, lat: coordinates.latitude, price, address: location.display_address[0], distance, userId: req.params.id, addressId: req.body.addressId, featureId: option[0] })
+        })
+        // res.json(businesses)
       })
-      res.json(businesses)
-    })
-    .catch(next);
+      .catch(next);
+  })
+  res.send('completed')
 })

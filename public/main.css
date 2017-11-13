@@ -4,6 +4,11 @@
   align-content: center
 }
 
+.column {
+  display: flex;
+  flex-direction: column
+}
+
 .spread {
   justify-content: space-between
 }

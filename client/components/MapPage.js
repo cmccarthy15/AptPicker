@@ -45,7 +45,7 @@ class MapPage extends React.Component {
         <hr />
         <MyMapComponent
           onMapLoaded={this.initGlobalGoogle}
-          googleMapURL={`https://maps.googleapis.com/maps/api/js?key=${googleMapsApi}&v=3.exp&libraries=geometry,drawing,places,visualization`} // this may not work anymore...
+          googleMapURL={`https://maps.googleapis.com/maps/api/js?key=${googleMapsApi}&v=3.exp&libraries=geometry,drawing,places,visualization`}
           loadingElement={<div style={{ height: `100%` }} />}
           containerElement={<div style={{ height: `60vh` }} />}
           mapElement={<div style={{ height: `100%` }} />}

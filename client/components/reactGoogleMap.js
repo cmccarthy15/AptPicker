@@ -39,7 +39,7 @@ export class MyMapComponent extends Component {
                   lat: Number(address.lat),
                   lng: Number(address.lng)
                 }}
-                radius={800}
+                radius={this.props.user.radius}
               />
             </div>
           )

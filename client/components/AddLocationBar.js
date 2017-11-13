@@ -27,13 +27,19 @@ export class AddLocation extends Component{
 
   handleSubmit(evt){
     evt.preventDefault();
+    const optionInfo = this.props.user.features.map(feature => ([feature.id, feature.type]));
     this.geocoder.geocode({address: this.state.address},
       (results) => {
         const location = results[0].geometry.location;
         const lat = location.lat();
         const lng = location.lng();
+        const user = this.props.user
         const userId = this.props.user.id
-        this.props.addNewAddr({address: this.state.address, lat, lng, userId})
+        this.props.addNewAddr({
+          address: this.state.address,
+          lat, lng, userId,
+          radius: user.radius,
+          options: optionInfo})
       })
   }
 
@@ -62,8 +68,8 @@ const mapState = state => {
 
 const mapDispatch = (dispatch) => {
   return {
-    addNewAddr({address, lat, lng, userId}){
-      dispatch(addAddr({ address, lat, lng, userId }))
+    addNewAddr({address, lat, lng, userId, radius, options}){
+      dispatch(addAddr({ address, lat, lng, userId, radius, options }))
     }
   }
 };
