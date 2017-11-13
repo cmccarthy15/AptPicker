@@ -1,7 +1,6 @@
 const crypto = require('crypto')
 const Sequelize = require('sequelize')
 const db = require('../db')
-const Feature = require('./feature')
 
 const User = db.define('user', {
   email: {

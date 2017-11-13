@@ -10,7 +10,7 @@
  * Now that you've got the main idea, check it out in practice below!
  */
 const db = require('../server/db')
-const {User} = require('../server/db/models')
+const {Feature} = require('../server/db/models')
 
 async function seed () {
   await db.sync({force: true})
@@ -18,13 +18,18 @@ async function seed () {
   // Whoa! Because we `await` the promise that db.sync returns, the next line will not be
   // executed until that promise resolves!
 
-  const users = await Promise.all([
-    User.create({email: 'cody@email.com', password: '123'}),
-    User.create({email: 'murphy@email.com', password: '123'})
+  const features = await Promise.all([
+    Feature.create({type: 'Cafe', icon: 'https://image.flaticon.com/icons/svg/37/37908.svg'}),
+    Feature.create({ type: 'Gym', icon: 'https://image.flaticon.com/icons/svg/563/563828.svg' }),
+    Feature.create({ type: 'Grocery', icon: 'https://image.flaticon.com/icons/svg/69/69372.svg' }),
+    Feature.create({ type: 'Yoga', icon: 'https://image.flaticon.com/icons/png/512/273/273280.png' }),
+    Feature.create({ type: 'Metro Station', icon: 'https://image.flaticon.com/icons/svg/619/619035.svg' }),
+    Feature.create({ type: 'Library', icon: 'https://image.flaticon.com/icons/svg/167/167755.svg' }),
+
   ])
   // Wowzers! We can even `await` on the right-hand side of the assignment operator
   // and store the result that the promise resolves to in a variable! This is nice!
-  console.log(`seeded ${users.length} users`)
+  console.log(`seeded ${features.length} users`)
   console.log(`seeded successfully`)
 }
 
