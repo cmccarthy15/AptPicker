@@ -7,7 +7,7 @@ export const AddressInfo = ({address}) => {
   console.log('address is: ', address);
   return (
     <div>
-      <h3 className="address-name">{address.address}</h3>
+      <h3 className="address-name font20">{address.address}</h3>
       <div className="column address-column">
       {address.UserFeatures.map( feature => {
         return (

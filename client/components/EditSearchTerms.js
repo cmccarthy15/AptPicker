@@ -48,7 +48,7 @@ export class EditSearchTerms extends Component {
       <div>
         <h3>Edit your options below: </h3>
         <form onSubmit={this.handleSubmit}>
-          <label>
+          <label className="edit-field">
             Radius (meters):
               <select
               value={radius}
@@ -59,10 +59,10 @@ export class EditSearchTerms extends Component {
               <option value="1000">1000</option>
             </select>
           </label>
-          <label className="column">
-            Extras:
+          <label className="column edit-field">
+            Options:
             {Object.keys(options).map((option) => (
-              <label key={options[option].id}>
+              <label key={options[option].id} className="option-field">
                 {options[option].type}
                 <input
                   name={options[option].type}

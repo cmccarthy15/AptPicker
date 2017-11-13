@@ -26,7 +26,7 @@ export class Profile extends Component {
       <div>
         <h3>Welcome, {name ? name : email}</h3>
         <p>{`Currently your radius is set to ${radius}.`}</p>
-        <p>{`And you're currently looking for these features:${
+        <p>{`And you're currently looking for these options:${
           user.features ? user.features.map(feature => ' '.concat(feature.type)) : ' None. Edit your search terms to start looking!'
         }`}</p>
         <button onClick={() => this.setState({editSearch: !this.state.editSearch})}>

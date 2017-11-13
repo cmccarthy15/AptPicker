@@ -45,8 +45,8 @@ export class AddLocation extends Component{
 
   render() {
     return (
-        <form onSubmit={this.handleSubmit} className="row">
-          <label>
+        <form onSubmit={this.handleSubmit} className=" vert-margin row">
+          <label className="font20" >
             Address:
             <input
               type="text"
