@@ -6,7 +6,7 @@
 
 .column {
   display: flex;
-  flex-direction: column
+  flex-direction: column;
 }
 
 .spread {
@@ -17,10 +17,9 @@
   margin: 0em 3em;
 }
 
-
-.wrap {
+.address-column {
   flex-wrap: wrap;
-  height: 15vh;
+  height: 30vw;
 }
 
 .nav-buttons > * {
@@ -75,4 +74,12 @@ button, .button {
 
 .name-icon {
   width: 50vw;
+}
+
+.address-info > * {
+  margin: 0;
+}
+
+.address-info {
+  margin: 1em 1em;
 }

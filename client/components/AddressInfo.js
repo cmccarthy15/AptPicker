@@ -8,11 +8,14 @@ export const AddressInfo = ({address}) => {
   return (
     <div>
       <h3 className="address-name">{address.address}</h3>
-      <div className="column wrap">
+      <div className="column address-column">
       {address.UserFeatures.map( feature => {
         return (
-          <p key={feature.id}><a href={feature.url} target="_blank">{feature.name}</a>{` at ${feature.address} has a rating of ${feature.rating} (${feature.feature ? feature.feature.type : 'oops'})`}
-          </p>
+          <div className="address-info" key={feature.id}>
+            <a href={feature.url} target="_blank">{`${feature.name} (${feature.feature ? feature.feature.type : 'oops'})`}</a>
+             <p>{`Address: ${feature.address}`}</p>
+             <p>{`Rating: ${feature.rating}`}</p>
+          </div>
         )
       })}
       </div>
