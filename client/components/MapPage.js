@@ -2,8 +2,8 @@ import React from 'react'
 import PropTypes from 'prop-types'
 import { connect } from 'react-redux'
 import { withRouter, Link } from 'react-router-dom'
-import { getFeaturesThunk, addAddr } from '../store'
-import { MyMapComponent, Nav, AddLocation } from './index'
+import { getFeaturesThunk } from '../store'
+import { MyMapComponent, AddLocation, AddressInfo } from './index'
 import { googleMapsApi } from '../../secrets'
 
 import {
@@ -50,6 +50,7 @@ class MapPage extends React.Component {
           containerElement={<div style={{ height: `60vh` }} />}
           mapElement={<div style={{ height: `100%` }} />}
         />
+        {addresses.map(address => (<AddressInfo key={address.id} address={address} />))}
       </div>
     )
   }

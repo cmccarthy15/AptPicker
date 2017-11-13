@@ -1,5 +1,7 @@
 const { STRING, DECIMAL, INTEGER } = require('sequelize')
 const db = require('../db')
+const Feature = require('./feature')
+
 
 const UserFeature = db.define('UserFeature', {
   name: {
@@ -23,6 +25,10 @@ const UserFeature = db.define('UserFeature', {
   },
   distance: {
     type: DECIMAL,
+  }
+}, {
+  defaultScope: {
+    include: [{model: Feature, attributes: ['icon', 'type']}]
   }
 })
 
