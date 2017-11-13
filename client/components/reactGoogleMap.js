@@ -50,7 +50,7 @@ export class MyMapComponent extends Component {
             <div key={feature.id}>
               <Marker
                 position={{ lat: Number(feature.lat), lng: Number(feature.lng) }}
-                icon={{ scaledSize: {width: 15, height: 15}, url: `${feature.feature.icon}`}} />
+                icon={{ scaledSize: {width: 20, height: 20}, url: `${feature.feature.icon}`}} />
             </div>
           )
         })}
