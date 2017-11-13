@@ -48,7 +48,7 @@ export class AddLocation extends Component{
               name="address"
               onChange={this.handleChange} />
           </label>
-          <input type="submit" value="Submit" />
+          <input className="button" type="submit" value="Submit" />
         </form>
     )}
 }

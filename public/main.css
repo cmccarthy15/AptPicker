@@ -1,5 +1,6 @@
 .row {
-  display: flex
+  display: flex;
+  align-items: center;
 }
 
 .spread {
@@ -8,4 +9,18 @@
 
 .nav-buttons > * {
   margin: 5em 5em;
+}
+
+.center-text{
+  text-align: center
+}
+
+Link {
+  color: black;
+}
+
+button, .button {
+  border-radius: 5px;
+  color: rgb(22, 114, 150);
+  text-decoration: bold
 }

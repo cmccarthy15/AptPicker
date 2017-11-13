@@ -26,11 +26,11 @@ export class Profile extends Component {
         <h3>Welcome, {name ? name : email}</h3>
         <p>{`Currently your radius is set to ${radius}.`}</p>
         <p>{`And you're currently looking for these features:${
-          user.features.map(feature => ' '.concat(feature.type))
+          user.features && user.features.map(feature => ' '.concat(feature.type))
         }`}</p>
         <button onClick={() => this.setState({editSearch: !this.state.editSearch})}>
           Edit Search Terms </button>
-        {this.state.editSearch && <EditSearch />}
+        {/*this.state.editSearch && <EditSearch />*/}
       </div>
     )
   }

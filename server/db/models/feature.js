@@ -6,7 +6,7 @@ const Feature = db.define('feature', {
     type: STRING,
     allowNull: false
   },
-  color: {
+  icon: {
     type: STRING,
     allowNull: false
   }
