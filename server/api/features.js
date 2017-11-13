@@ -48,3 +48,12 @@ router.post('/user/:id/newaddr', async (req, res, next) => {
   })
   res.send('completed')
 })
+
+router.delete('/:id', (req, res, next) => {
+  UserFeature.findById(req.params.id)
+    .then( feature => {
+      feature.destroy();
+      res.send('successful delete')
+    })
+    .catch(next)
+})

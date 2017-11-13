@@ -1,5 +1,5 @@
 import axios from 'axios'
-
+import { getAddrThunk } from './index'
 /**
  * ACTION TYPES
  */
@@ -47,6 +47,15 @@ export const addNewAddress = (info) =>
       .catch(err => console.error(err))
   }
 
+export const deleteUserFeature = ({id, userId}) =>
+  dispatch => {
+    return axios.delete(`/api/features/${id}`)
+    .then( () => {
+      dispatch(getSelectedThunk(userId))
+      dispatch(getAddrThunk(userId))
+    })
+    .catch(err => console.error(err))
+  }
 
 /**
 * REDUCER

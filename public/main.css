@@ -1,7 +1,6 @@
 body * {
   font-family: 'Oxygen',
   sans-serif;
-
 }
 
 .row {
@@ -15,6 +14,10 @@ body * {
   flex-direction: column;
 }
 
+.wrap {
+  flex-wrap: wrap
+}
+
 .spread {
   justify-content: space-between;
 }
@@ -25,7 +28,7 @@ body * {
 
 .address-column {
   flex-wrap: wrap;
-  height: 30vw;
+  height: 25vw;
 }
 
 .nav-buttons > * {

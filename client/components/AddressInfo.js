@@ -1,9 +1,10 @@
 import React from 'react'
-
 import { connect } from 'react-redux'
+import { deleteUserFeature } from '../store'
 
 
-export const AddressInfo = ({address}) => {
+export const AddressInfo = (props) => {
+  const {address} = props
   console.log('address is: ', address);
   return (
     <div>
@@ -11,10 +12,13 @@ export const AddressInfo = ({address}) => {
       <div className="column address-column">
       {address.UserFeatures.map( feature => {
         return (
-          <div className="address-info" key={feature.id}>
-            <a href={feature.url} target="_blank">{`${feature.name} (${feature.feature ? feature.feature.type : 'oops'})`}</a>
-             <p>{`Address: ${feature.address}`}</p>
-             <p>{`Rating: ${feature.rating}`}</p>
+          <div className="row" key={feature.id}>
+            <div className="address-info">
+              <a href={feature.url} target="_blank">{`${feature.name} (${feature.feature ? feature.feature.type : 'oops'})`}</a>
+              <p>{`Address: ${feature.address}`}</p>
+              <p>{`Rating: ${feature.rating}`}</p>
+             </div>
+             <button onClick={() => props.deleteFeature({userId: address.userId, id: feature.id})}>x</button>
           </div>
         )
       })}
@@ -26,7 +30,13 @@ export const AddressInfo = ({address}) => {
 
 const mapState = null
 
-const mapDispatch = null
+const mapDispatch = dispatch => {
+  return {
+    deleteFeature({id, userId}){
+      dispatch(deleteUserFeature({id, userId}))
+    }
+  }
+}
 
 // The `withRouter` wrapper makes sure that updates are not blocked
 // when the url changes
