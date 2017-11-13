@@ -1,5 +1,5 @@
 import axios from 'axios'
-import { addNewAddress } from './index'
+import { addNewAddress, getSelectedThunk } from './index'
 
 /**
  * ACTION TYPES
@@ -40,7 +40,8 @@ export const addAddr = (addr) =>
         console.log('got a response back', address)
         dispatch(addNewAddress({...addr, addressId: address.data.id}))
         .then( () =>
-          dispatch(getAddrThunk(addr.userId))
+          {dispatch(getAddrThunk(addr.userId))
+          dispatch(getSelectedThunk(addr.userId))}
         )
 
       })

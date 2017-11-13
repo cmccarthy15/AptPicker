@@ -20,6 +20,7 @@ export class MyMapComponent extends Component {
 
   render(){
     const { onMapLoaded } = this.props;
+    console.log('map features: ', this.props.features)
     console.log('this component has addresses... ', this.props.addresses)
     return (
       <GoogleMap
@@ -49,7 +50,7 @@ export class MyMapComponent extends Component {
             <div key={feature.id}>
               <Marker
                 position={{ lat: Number(feature.lat), lng: Number(feature.lng) }}
-                icon={{ scaledSize: {width: 15, height: 15}, url: 'https://image.flaticon.com/icons/svg/37/37908.svg'}} />
+                icon={{ scaledSize: {width: 15, height: 15}, url: `${feature.feature.icon}`}} />
             </div>
           )
         })}
