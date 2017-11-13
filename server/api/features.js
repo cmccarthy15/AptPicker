@@ -1,7 +1,7 @@
 const router = require('express').Router()
 const { Feature, UserFeature } = require('../db/models')
 
-const { yelpAccessToken } = require('../../secrets')
+const yelpAccessToken = process.env.yelpAccessToken || require('../../secrets').yelpAccessToken
 const yelp = require('yelp-fusion');
 
 const yelpClient = yelp.client(yelpAccessToken);
