@@ -28,19 +28,19 @@ router.get('/user/:id', (req, res, next) => {
 
 
 router.post('/user/:id/newaddr', async (req, res, next) => {
-  console.log('req body has the right stuff? ', req.body); // radius and array of arrays [id, type]
+  console.log('req body has the right stuff? ', req.body, ' radius: ', req.body.radius); // radius and array of arrays [id, type]
   await req.body.options.forEach(option => {
     return yelpClient.search({
-      term: option[1] ,
+      term: option[1],
       latitude: req.body.lat,
       longitude: req.body.lng,
       radius: req.body.radius,
-      limit: 5
+      limit: 3
     })
       .then(async response => {
         const businesses = response.jsonBody.businesses;
-        const limitedData = await businesses.map(async ({ name, rating, coordinates, price, location, distance }) => {
-          await UserFeature.create({ name, rating, lng: coordinates.longitude, lat: coordinates.latitude, price, address: location.display_address[0], distance, userId: req.params.id, addressId: req.body.addressId, featureId: option[0] })
+        const limitedData = await businesses.map(async ({ name, rating, coordinates, price, location, distance, url }) => {
+          await UserFeature.create({ name, rating, url, lng: coordinates.longitude, lat: coordinates.latitude, price, address: location.display_address[0], distance, userId: req.params.id, addressId: req.body.addressId, featureId: option[0] })
         })
         // res.json(businesses)
       })

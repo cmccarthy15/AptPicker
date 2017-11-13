@@ -23,6 +23,9 @@ const UserFeature = db.define('UserFeature', {
   rating: {
     type: INTEGER,
   },
+  url: {
+    type: STRING,
+  },
   distance: {
     type: DECIMAL,
   }

@@ -20,12 +20,14 @@ async function seed () {
 
   const features = await Promise.all([
     Feature.create({type: 'Cafe', icon: 'https://image.flaticon.com/icons/svg/37/37908.svg'}),
-    Feature.create({ type: 'Gym', icon: 'https://image.flaticon.com/icons/svg/563/563828.svg' }),
+    Feature.create({ type: 'Gym', icon: 'https://image.flaticon.com/icons/svg/69/69966.svg' }),
     Feature.create({ type: 'Grocery', icon: 'https://image.flaticon.com/icons/svg/69/69372.svg' }),
     Feature.create({ type: 'Yoga', icon: 'https://image.flaticon.com/icons/png/512/273/273280.png' }),
-    Feature.create({ type: 'Metro Station', icon: 'https://image.flaticon.com/icons/svg/619/619035.svg' }),
-    Feature.create({ type: 'Library', icon: 'https://image.flaticon.com/icons/svg/167/167755.svg' }),
-
+    Feature.create({ type: 'Metro Station', icon: 'https://image.flaticon.com/icons/svg/60/60812.svg' }),
+    Feature.create({ type: 'Library', icon: 'https://image.flaticon.com/icons/svg/47/47536.svg' }),
+    Feature.create({ type: 'Park', icon: 'https://image.flaticon.com/icons/svg/616/616518.svg' }),
+    Feature.create({ type: 'Laundry', icon: 'https://image.flaticon.com/icons/svg/63/63123.svg' }),
+    Feature.create({ type: 'Free Wifi', icon: 'https://image.flaticon.com/icons/svg/64/64240.svg' }),
   ])
   // Wowzers! We can even `await` on the right-hand side of the assignment operator
   // and store the result that the promise resolves to in a variable! This is nice!
