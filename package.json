@@ -1,7 +1,7 @@
 {
-  "name": "boilermaker",
+  "name": "Get-Apt",
   "version": "1.0.0",
-  "description": "Some boilerplate code to get you started - get shakin'!",
+  "description": "Apt to get you more information about your future apts before you go check them out",
   "engines": {
     "node": "^9"
   },
