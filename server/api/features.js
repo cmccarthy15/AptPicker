@@ -28,26 +28,43 @@ router.get('/user/:id', (req, res, next) => {
 
 
 router.post('/user/:id/newaddr', async (req, res, next) => {
-  console.log('req body has the right stuff? ', req.body, ' radius: ', req.body.radius); // radius and array of arrays [id, type]
-  await req.body.options.forEach(option => {
-    return yelpClient.search({
+  let yelpResponses = await Promise.all(
+    req.body.options.map(option => yelpClient.search({
       term: option[1],
       latitude: req.body.lat,
       longitude: req.body.lng,
       radius: req.body.radius,
       limit: 3
     })
-      .then(async response => {
-        const businesses = response.jsonBody.businesses;
-        const limitedData = await businesses.map(async ({ name, rating, coordinates, price, location, distance, url }) => {
-          await UserFeature.create({ name, rating, url, lng: coordinates.longitude, lat: coordinates.latitude, price, address: location.display_address[0], distance, userId: req.params.id, addressId: req.body.addressId, featureId: option[0] })
-        })
-        console.log('finished adding all the userFeatures')
-        // res.json(businesses)
-      })
-      .catch(next);
-  })
-  res.send('completed')
+    .then( response => {
+      const businesses = response.jsonBody.businesses;
+      const userFeatures = Promise.all(
+        businesses.map(({ name, rating, coordinates, price, location, distance, url }) => UserFeature.create({ name, rating, url, lng: coordinates.longitude, lat: coordinates.latitude, price, address: location.display_address[0], distance, userId: req.params.id, addressId: req.body.addressId, featureId: option[0] }))
+      )
+      return userFeatures;
+    })
+    )
+  )
+  .catch(next);
+  // await req.body.options.forEach(async option => {
+  //   await yelpClient.search({
+  //     term: option[1],
+  //     latitude: req.body.lat,
+  //     longitude: req.body.lng,
+  //     radius: req.body.radius,
+  //     limit: 3
+  //   })
+  //     .then(async response => {
+  //       const businesses = response.jsonBody.businesses;
+  //       const limitedData = await businesses.map(async ({ name, rating, coordinates, price, location, distance, url }) => {
+  //         await UserFeature.create({ name, rating, url, lng: coordinates.longitude, lat: coordinates.latitude, price, address: location.display_address[0], distance, userId: req.params.id, addressId: req.body.addressId, featureId: option[0] })
+  //       })
+  //       // res.json(businesses)
+  //     })
+  //     .catch(next);
+  // })
+  console.log('please let this not be promises   ------->   ', yelpResponses)
+  res.json(yelpResponses);
 })
 
 router.delete('/:id', (req, res, next) => {
