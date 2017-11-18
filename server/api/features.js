@@ -42,6 +42,7 @@ router.post('/user/:id/newaddr', async (req, res, next) => {
         const limitedData = await businesses.map(async ({ name, rating, coordinates, price, location, distance, url }) => {
           await UserFeature.create({ name, rating, url, lng: coordinates.longitude, lat: coordinates.latitude, price, address: location.display_address[0], distance, userId: req.params.id, addressId: req.body.addressId, featureId: option[0] })
         })
+        console.log('finished adding all the userFeatures')
         // res.json(businesses)
       })
       .catch(next);

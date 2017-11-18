@@ -26,6 +26,7 @@ export const getSelectedThunk = (id) =>
   dispatch => {
     axios.get(`/api/features/user/${id}`)
       .then(features => {
+        console.log('got new features: ', features.data)
         dispatch(getSelected(features.data))
       })
       .catch(err => console.error(err))
